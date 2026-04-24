@@ -1,0 +1,40 @@
+name: Train Model on Azure ML
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/ml/**"
+      - "pipelines/azureml/**"
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Azure ML CLI
+        run: |
+          az extension add -n ml -y
+
+      - name: Install Python deps
+        run: |
+          pip install -r requirements.txt
+
+      - name: Submit training pipeline
+        env:
+          AZUREML_WORKSPACE_NAME: ${{ secrets.AZUREML_WORKSPACE_NAME }}
+          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        run: |
+          python pipelines/azureml/submit_pipeline.py
