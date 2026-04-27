@@ -81,7 +81,7 @@ def main():
     # Referencia al data asset (lo registras en Día 1 vía UI o CLI)
     data_input = Input(
         type="uri_folder",
-        path=f"azureml:walmart-raw-dataset:1",
+        path=f"azureml:walmart-raw-dataset:2",
     )
 
     job = training_pipeline(input_data=data_input)
