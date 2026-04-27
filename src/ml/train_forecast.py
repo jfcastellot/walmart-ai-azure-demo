@@ -91,13 +91,14 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-dir", type=Path, default=Path("data/raw"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
-    parser.add_argument("--n-estimators", type=int, default=100)
+    parser.add_argument("--n-estimators", type=int, default=150)
     parser.add_argument("--max-depth", type=int, default=15)
     args = parser.parse_args()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    mlflow.set_experiment("walmart-forecast")
+    if not os.getenv("AZUREML_RUN_ID"):
+        mlflow.set_experiment("walmart-forecast")
     with mlflow.start_run():
         print("📥 Cargando datos...")
         df = load_walmart_data(args.data_dir)
@@ -138,12 +139,18 @@ def main():
             "test_weeks": 8,
         })
         mlflow.log_metrics(metrics)
-        mlflow.sklearn.log_model(model, "model")
 
         # Guardar modelo local
         model_path = args.output_dir / "forecast_model.joblib"
         joblib.dump(model, model_path)
-        print(f"💾 Modelo guardado en {model_path}")
+        print(f"💾 Modelo guardado en {model_path}")        
+
+        if not os.getenv("AZUREML_RUN_ID"):
+            mlflow.sklearn.log_model(model, "model")
+        else:
+            mlflow.log_artifact(str(model_path))
+
+
 
 
 if __name__ == "__main__":

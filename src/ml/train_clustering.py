@@ -5,6 +5,7 @@ Uso local:
     python -m src.ml.train_clustering
 """
 import argparse
+import os
 from pathlib import Path
 
 import joblib
@@ -57,7 +58,8 @@ def main():
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    mlflow.set_experiment("walmart-clustering")
+    if not os.getenv("AZUREML_RUN_ID"):
+        mlflow.set_experiment("walmart-clustering")
     with mlflow.start_run():
         print("📥 Cargando datos...")
         train = pd.read_csv(args.data_dir / "train.csv", parse_dates=["Date"])
