@@ -1,4 +1,4 @@
-name: Train Model on Azure ML
+name: CT - Train Model on Azure ML
 
 on:
   workflow_dispatch:
