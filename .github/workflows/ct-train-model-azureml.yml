@@ -34,7 +34,8 @@ jobs:
 
       - name: Submit training pipeline
         env:
-          AZUREML_WORKSPACE_NAME: ${{ secrets.AZUREML_WORKSPACE_NAME }}
-          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          AZURE_SUBSCRIPTION_ID: f6673ca6-9111-4260-9e1e-2547444025eb
+          AZUREML_WORKSPACE_NAME: wks-jfc-walmart-demo
+          AZURE_RESOURCE_GROUP: rg-jfc-walmart-demo
         run: |
           python pipelines/azureml/submit_pipeline.py
