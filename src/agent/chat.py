@@ -47,11 +47,20 @@ class ForecastPlugin:
     ) -> Annotated[str, "Predicción de ventas en USD con intervalo de confianza"]:
         if self.model is None:
             return "Modelo no disponible. Ejecuta primero src.ml.train_forecast."
-        # Nota: en producción esto consultaría el endpoint de Azure ML
-        # Para la demo, hacemos una predicción simplificada
+        features = pd.DataFrame([[
+            store_id, dept_id, 0, 65.0, 3.50, 220.0,
+            7.5, 150000, 2025, 4, week, week * 7,
+            0, 0, 0, 0, 0, 1, 0, 0
+        ]], columns=[
+            "Store", "Dept", "IsHoliday", "Temperature", "Fuel_Price", "CPI",
+            "Unemployment", "Size", "Year", "Month", "Week", "DayOfYear",
+            "MarkDown1", "MarkDown2", "MarkDown3", "MarkDown4", "MarkDown5",
+            "StoreType_A", "StoreType_B", "StoreType_C"
+        ])
+        prediction = self.model.predict(features)[0]
         return (
-            f"Predicción para Tienda {store_id}, Depto {dept_id}, Semana {week}: "
-            f"[este es un placeholder — se conectará al endpoint real en Día 3]"
+            f"Predicción para Tienda {store_id}, Depto {dept_id}, "
+            f"Semana {week}: ${prediction:,.2f} USD en ventas estimadas."
         )
 
 
