@@ -2,7 +2,7 @@
 
 > Caso de uso retail que demuestra un sistema completo en Azure: ingesta con ADF, entrenamiento de modelos con Azure Machine Learning, agente conversacional con Azure OpenAI + Semantic Kernel, y CI/CD con GitHub Actions.
 
-**Autor:** José Felipe Fernández Medellín
+**Autor:** José Felipe Castellot Del Razo
 **Contexto:** Demo técnica alineada con RFP Walmart México & Centroamérica (SEDSA v5.0), secciones 2.2.3 (IA/GenAI) y 2.2.10 (Ingeniería moderna).
 
 ---
