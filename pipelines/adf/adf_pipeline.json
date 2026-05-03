@@ -1,0 +1,49 @@
+{
+  "name": "pl-ingest-and-train",
+  "properties": {
+    "description": "Ingesta CSVs de Blob Storage y dispara pipeline de Azure ML",
+    "activities": [
+      {
+        "name": "CopyCSVsToML",
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "BlobSource"
+          },
+          "sink": {
+            "type": "BlobSink"
+          }
+        },
+        "inputs": [
+          {
+            "referenceName": "ds-raw-storage",
+            "type": "DatasetReference"
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "ds-ml-storage",
+            "type": "DatasetReference"
+          }
+        ]
+      },
+      {
+        "name": "TriggerAzureMLPipeline",
+        "type": "AzureMLExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "CopyCSVsToML",
+            "dependencyConditions": ["Succeeded"]
+          }
+        ],
+        "typeProperties": {
+          "mlPipelineId": "walmart-training-pipeline"
+        },
+        "linkedServiceName": {
+          "referenceName": "ls-azureml",
+          "type": "LinkedServiceReference"
+        }
+      }
+    ]
+  }
+}
