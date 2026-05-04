@@ -15,7 +15,6 @@ from azure.mgmt.datafactory.models import (
     DatasetResource,
     AzureBlobDataset,
     PipelineResource,
-    Activity,
 )
 from dotenv import load_dotenv
 

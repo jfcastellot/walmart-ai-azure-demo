@@ -3,7 +3,6 @@
 > Caso de uso retail que demuestra un sistema completo en Azure: ingesta con ADF, entrenamiento de modelos con Azure Machine Learning, agente conversacional con Azure OpenAI + Semantic Kernel, y CI/CD con GitHub Actions.
 
 **Autor:** José Felipe Castellot Del Razo
-**Contexto:** Demo técnica alineada con RFP Walmart México & Centroamérica (SEDSA v5.0), secciones 2.2.3 (IA/GenAI) y 2.2.10 (Ingeniería moderna).
 
 ---
 
@@ -28,14 +27,14 @@ Este repositorio construye ambas capacidades y las expone a través de un **agen
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│   AGENTE CONVERSACIONAL (Semantic Kernel + Azure OpenAI gpt-4o-mini)    │
-│   Plugins: ForecastPlugin, ClusterPlugin, BusinessInsightPlugin         │
+│   AGENTE CONVERSACIONAL (Semantic Kernel + Azure OpenAI gpt-4o)         │
+│   Plugins: ForecastPlugin, ClusterPlugin                                │
 └───────────────────────────────┬─────────────────────────────────────────┘
                                 │ (invoca plugins como herramientas)
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │             AZURE ML — Managed Online Endpoint                          │
-│   Modelo de forecast (RandomForest/XGBoost) + modelo de clustering      │
+│   Modelo de forecast (Random Forest) + modelo de clustering (KMeans)   │
 └───────────────────────────────▲─────────────────────────────────────────┘
                                 │ (entrenado por)
                                 │
@@ -63,15 +62,15 @@ Este repositorio construye ambas capacidades y las expone a través de un **agen
 | Capa | Tecnología |
 |------|------------|
 | Lenguaje principal | Python 3.11 |
-| ML | scikit-learn, XGBoost, MLflow |
+| ML | scikit-learn, MLflow |
 | Cloud ML | Azure Machine Learning (SDK v2) |
 | Ingesta | Azure Data Factory + Azure Blob Storage |
-| GenAI | Azure OpenAI Service (gpt-4o-mini) |
+| GenAI | Azure OpenAI Service (gpt-4o) |
 | Orquestación de agentes | Semantic Kernel (Python) |
-| Bot conversacional | Azure Bot Framework SDK (fase 2) |
+| Bot conversacional | Azure Bot Framework SDK |
 | CI/CD | GitHub Actions |
 | IaC | Azure CLI + YAML |
-| Desarrollo | VS Code + Claude Code como asistente |
+| Desarrollo | VS Code + asistentes de codificación con IA |
 
 ---
 
@@ -88,7 +87,7 @@ Este repositorio construye ambas capacidades y las expone a través de un **agen
 
 ```bash
 # 1. Clonar
-git clone https://github.com/<tu-usuario>/walmart-ai-azure-demo.git
+git clone https://github.com/jfcastellot/walmart-ai-azure-demo.git
 cd walmart-ai-azure-demo
 
 # 2. Ambiente Python
@@ -122,44 +121,39 @@ python pipelines/azureml/submit_pipeline.py
 
 # Probar el agente
 python -m src.agent.chat
+
+# Arrancar el bot
+python -m src.agent.app
 ```
 
 ---
 
 ## Progreso del desarrollo
 
-- [ ] Día 0 (jue): Setup ambiente, cuentas, dataset
-- [ ] Día 1 (vie): Azure ML Workspace + notebook baseline + MLflow
-- [ ] Día 2 (sáb): Pipeline SDK v2 + clustering + registro de modelo
-- [ ] Día 3 (dom): Endpoint de inferencia + CI/CD GitHub Actions
-- [ ] Día 4 (lun): Agente Semantic Kernel + Azure OpenAI + plugins
-- [ ] Día 5 (mar): Demo al director
-- [ ] Semana 2: ADF pipeline + Bot Framework + pulido
-- [ ] Día 12 (jue 7-may): Entrevista formal
+- [x] Día 1: Azure Storage + dataset (421,570 filas · 3 CSV)
+- [x] Día 2: Azure ML Pipeline + modelos forecast y clustering
+- [x] Día 3: Model Registry con versionado y lineage
+- [x] Día 4: Online Endpoint HTTPS + primera predicción validada
+- [x] Día 5: CI/CD con GitHub Actions (CI + CT)
+- [x] Día 6: Agente GenAI con Semantic Kernel + Azure OpenAI
+- [x] Día 7: Bot Framework SDK + Bot Framework Emulator
+- [ ] Día 8: Azure Data Factory pipeline
+- [ ] Día 9: Azure AI Search + RAG
+- [ ] Día 10: Pulido y pruebas finales
 
 ---
 
-## Mapeo a requisitos RFP y perfil del proyecto
+## Capacidades demostradas
 
-**Sección 2.2.3 RFP Walmart — Experiencia en IA y GenAI:**
-- Modelos preentrenados en la nube → Azure OpenAI gpt-4o-mini
-- Entrenar nuevos modelos ML → forecasting + clustering con scikit-learn
-- Pipeline de datos con DataDevOps → ADF + Azure ML + GitHub Actions
+- Modelos preentrenados en la nube → Azure OpenAI gpt-4o
+- Entrenamiento de modelos ML → forecasting + clustering con scikit-learn
+- Pipeline de datos → ADF + Azure ML + GitHub Actions
 - MLOps end-to-end → training pipeline + registered model + managed endpoint + CI/CD
 - LLMs y NLU → agente Semantic Kernel responde en español natural
-- Búsqueda semántica → opcional fase 2, Azure AI Search + embeddings
-- Asistentes de codificación → Claude Code usado durante todo el desarrollo, documentado
-
-**Sección 2.2.10 RFP Walmart — Ingeniería Moderna:**
+- Canal conversacional → Azure Bot Framework SDK
+- Búsqueda semántica → Azure AI Search + embeddings (próximamente)
 - Ingeniería de prompts → ver `docs/prompt_engineering.md`
-- Ingeniería de plataformas → todo este repo es un platform template
-- Ingeniería de software verde → compute instances con auto-shutdown, modelos livianos
-
-**Stack requerido por el proyecto:**
-- Azure AI Foundry + Azure OpenAI Service ✅
-- Semantic Kernel ✅
-- Azure Bot Framework SDK → fase 2
-- Agentic coding tools → Claude Code documentado en `docs/development_process.md`
+- Uso responsable de IA en desarrollo → ver `docs/development_process.md`
 
 ---
 

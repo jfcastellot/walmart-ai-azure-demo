@@ -1,6 +1,6 @@
 # Cómo arrancar — Instrucciones paso a paso
 
-**¡Hola José Felipe!** Este archivo te dice exactamente qué hacer en los primeros 90 minutos. El Plan de Acción completo está en el Word que te pasé aparte.
+Este archivo describe los pasos necesarios para configurar el ambiente de desarrollo y ejecutar el proyecto desde cero.
 
 ## Paso 1: Crear tu cuenta de Azure (15 min)
 
@@ -16,11 +16,11 @@
 2. Click en "+" arriba a la derecha → "New repository"
 3. Nombre: `walmart-ai-azure-demo`
 4. Descripción: "Retail intelligence system on Azure — forecasting, clustering, and conversational agent"
-5. Visibilidad: **Public** (importante — así tu director puede entrar sin invitación)
+5. Visibilidad: **Public**
 6. NO marcar "Add README" (ya tienes uno)
 7. Click "Create repository"
 
-Ahora desde tu laptop, abre una terminal en la carpeta donde descomprimiste este zip:
+Desde la carpeta del proyecto:
 
 ```bash
 cd walmart-ai-azure-demo
@@ -70,13 +70,11 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Esto tarda 3-5 minutos. Mientras tanto...
-
 ## Paso 5: Descargar el dataset de Walmart (10 min)
 
 1. Ir a https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data
 2. Si no tienes cuenta Kaggle, regístrate (gratis, 2 min)
-3. Click "Late Submission" para aceptar términos de la competencia (no vas a subir nada, solo necesitas aceptar)
+3. Click "Late Submission" para aceptar términos de la competencia
 4. Descargar los 3 archivos:
    - `train.csv`
    - `features.csv`
@@ -86,11 +84,10 @@ Esto tarda 3-5 minutos. Mientras tanto...
 ## Paso 6: Configurar variables (5 min)
 
 ```bash
-# Copiar el template
 cp config/.env.example config/.env
 ```
 
-Abrir `config/.env` con VS Code y llenar solo estos dos por ahora (los demás los llenas en el Día 1):
+Abrir `config/.env` con VS Code y llenar:
 
 ```
 AZURE_SUBSCRIPTION_ID=<lo ves con el comando de abajo>
@@ -126,9 +123,9 @@ Si ves algo como:
 💾 Modelo guardado en outputs/forecast_model.joblib
 ```
 
-**¡Funcionó!** Ya tienes un modelo real entrenado. Celebra 30 segundos y sigue.
+El ambiente está correctamente configurado.
 
-## Paso 8: Commit del Día 0
+## Paso 8: Commit inicial
 
 ```bash
 git add .
@@ -136,9 +133,7 @@ git commit -m "Day 0: environment setup + baseline model running locally"
 git push
 ```
 
-## Listo
-
-Ya cumpliste el Día 0. Mañana viernes arrancas con el plan completo del Word. La primera hora va a ser crear el Azure ML Workspace ejecutando el script:
+## Paso 9: Provisionar infraestructura en Azure
 
 ```bash
 bash scripts/00_setup_infra.sh
@@ -146,7 +141,7 @@ bash scripts/00_setup_infra.sh
 
 ---
 
-## Si algo falla
+## Solución de problemas comunes
 
 **Error `az: command not found`** → reinstalar Azure CLI o reiniciar terminal
 
@@ -156,7 +151,7 @@ bash scripts/00_setup_infra.sh
 
 **Error con el dataset** → verificar que los 3 CSVs están en `data/raw/` (no en una subcarpeta)
 
-**Cualquier otra cosa** → cópialo a Claude y te ayudo a resolverlo en minutos.
+---
 
 ## Recordatorio importante
 

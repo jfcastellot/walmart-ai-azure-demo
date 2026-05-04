@@ -1,14 +1,13 @@
-# Guía de Prompt Engineering — Proyecto Walmart AI
+# Guía de Prompt Engineering — Agente Conversacional Azure AI
 
 > Documento vivo que captura las prácticas de ingeniería de prompts aplicadas al agente conversacional de este proyecto.
-> Alineado con RFP Walmart México & Centroamérica SEDSA v5.0, sección 2.2.10 ("Ingeniería de prompts").
 
 ## 1. Principios aplicados
 
 ### 1.1 Especificidad sobre brevedad
 El prompt del sistema define rol, audiencia, idioma, estilo y herramientas disponibles explícitamente. Ejemplo del agente:
 
-> "Eres un asistente analítico para gerentes de categoría de Walmart México. Respondes en español natural, de forma ejecutiva y concisa."
+> "Eres un asistente analítico para gerentes de categoría de retail. Respondes en español natural, de forma ejecutiva y concisa."
 
 ### 1.2 Herramientas sobre descripciones
 En lugar de pedirle al LLM que "invente" predicciones, le damos plugins concretos (`ForecastPlugin`, `ClusterPlugin`) y dejamos que el modelo decida cuándo invocarlos. Esto reduce alucinaciones y garantiza trazabilidad.

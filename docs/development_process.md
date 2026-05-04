@@ -1,7 +1,7 @@
 # Proceso de Desarrollo — Uso de Asistentes de Codificación con IA
 
 > Documenta cómo se usaron herramientas de codificación asistida por IA (Claude, Claude Code, GitHub Copilot) durante la construcción de este proyecto.
-> Alineado con RFP Walmart sección 2.2.3: "Experiencia en la construcción/uso de asistentes de codificación con IA para el desarrollo y pruebas de software".
+> Alineado con las mejores prácticas de desarrollo moderno para el uso responsable de IA en proyectos de software empresarial.
 
 ## Herramientas usadas
 

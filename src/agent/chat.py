@@ -21,6 +21,7 @@ from semantic_kernel.connectors.ai.open_ai import (
 )
 from semantic_kernel.connectors.ai.function_choice_behavior import FunctionChoiceBehavior
 from semantic_kernel.functions import kernel_function
+from src.search.search_plugin import SearchPlugin
 
 load_dotenv(Path("config/.env"))
 
@@ -145,6 +146,7 @@ def build_agent() -> ChatCompletionAgent:
     )
     kernel.add_plugin(ForecastPlugin(), plugin_name="Forecast")
     kernel.add_plugin(ClusterPlugin(), plugin_name="Cluster")
+    kernel.add_plugin(SearchPlugin(), plugin_name="Search")
 
     settings = AzureChatPromptExecutionSettings()
     settings.function_choice_behavior = FunctionChoiceBehavior.Auto()

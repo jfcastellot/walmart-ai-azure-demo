@@ -1,4 +1,5 @@
 ﻿{
+  "_fields": "Store, Dept, IsHoliday, Temperature, Fuel_Price, CPI, Unemployment, Size, Year, Month, Week, DayOfYear, MD1, MD2, MD3, MD4, MD5, TypeA, TypeB, TypeC",
   "data": [
     [1, 1, 0, 70.5, 3.50, 220.0, 7.5, 151315, 2010, 2, 5, 36, 0, 0, 0, 0, 0, 1, 0, 0]
   ]
