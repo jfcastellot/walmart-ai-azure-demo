@@ -2,7 +2,6 @@
 Servidor HTTP aiohttp que expone el bot al Bot Framework Emulator.
 Arrancar con: python -m src.agent.app
 """
-import asyncio
 from pathlib import Path
 
 from aiohttp import web
